@@ -565,6 +565,7 @@ async function main() {
 
   window.addEventListener("keydown", (e) => {
     carousel = false;
+
     if (!activeKeys.includes(e.code)) activeKeys.push(e.code);
     if (/\d/.test(e.key)) {
       currentCameraIndex = parseInt(e.key);
@@ -579,11 +580,12 @@ async function main() {
       currentCameraIndex = (currentCameraIndex + 1) % cameras.length;
       viewMatrix = getViewMatrix(cameras[currentCameraIndex]);
     }
-    camid.innerText = "cam  " + currentCameraIndex;
+
+    if (camid) camid.innerText = "cam  " + currentCameraIndex;
 
     if (e.code == "KeyV") {
       location.hash = "#" + JSON.stringify(viewMatrix.map((k) => Math.round(k * 100) / 100));
-      camid.innerText = "";
+      if (camid) camid.innerText = "";
     } else if (e.code === "KeyC") {
       const roundedMatrix = viewMatrix.map((k) => Math.round(k * 100) / 100);
       const matrixString = JSON.stringify(roundedMatrix);
@@ -606,7 +608,7 @@ async function main() {
       }
     } else if (e.code === "KeyP") {
       carousel = true;
-      camid.innerText = "";
+      if (camid) camid.innerText = "";
     }
   });
 
@@ -936,7 +938,10 @@ async function main() {
     } else if (!remaining && chunk.type === "chunks") {
       for (let chunk of JSON.parse(new TextDecoder("utf-8").decode(buffer))) {
         chunks.push(chunk);
-        if (chunk.type === "splat") { cameras = chunk.cameras; camera = chunk.cameras[0]; resize(); }
+        if (chunk.type === "splat") { 
+          //cameras = chunk.cameras; 
+          //camera = chunk.cameras[0]; 
+          resize(); }
       }
     } else if (chunk.type === "splat") {
       if (vertexCount > lastVertexCount || remaining === 0) {
