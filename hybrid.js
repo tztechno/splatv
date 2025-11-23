@@ -962,7 +962,7 @@ async function main() {
     }
   };
 
-  const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/stpete2/splatv/resolve/main/") : "model.splatv";
+  const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/datasets/stpete2/splatv/resolve/main/") : "model.splatv";
   //const url = params.get("url") ? new URL(params.get("url"), "https://huggingface.co/cakewalk/splat-data/resolve/main/") : "model.splatv";
   const req = await fetch(url, { mode: "cors", credentials: "omit" });
   if (req.status != 200) throw new Error(req.status + " Unable to load " + req.url);
