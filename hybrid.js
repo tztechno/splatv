@@ -881,11 +881,12 @@ async function main() {
       } else {
           t = 1.0;  // 待機中（消えた状態）
       }
-      gl.uniform1f(u_time, t);
+      // gl.uniform1f(u_time, t);
       // 花火設定: 6.28秒サイクル、最後の2秒を待機時間に 
-
       
-      //gl.uniform1f(u_time, (Date.now() / 6280) % 1.0); //1方向
+      gl.uniform1f(u_time, (Date.now() / 6280) % 1.0); //1方向
+      // orbit設定: 2025/12/19
+      
       //gl.uniform1f(u_time, Math.sin(Date.now() / 1000) / 2 + 1 / 2); //往復
       
       gl.clear(gl.COLOR_BUFFER_BIT);
